@@ -1,6 +1,6 @@
 **Implementation of various Design Patterns in Scala Language**
 
-Contents:<br>
-[Classic GOF Design Patterns](/src/scala/GOF.design.patterns)
+Contents:
+<br>Classic GOF Design Patterns
 
-<br>_to be continued ..._ 
+<br>_to be continued ..._
