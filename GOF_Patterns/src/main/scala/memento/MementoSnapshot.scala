@@ -1,5 +1,0 @@
-package memento
-
-class MementoSnapshot {
-
-}

@@ -1,5 +1,0 @@
-package proxy
-
-class SimpleProxy {
-
-}

@@ -1,5 +1,0 @@
-package composite
-
-class Composite {
-
-}

@@ -1,5 +1,0 @@
-package flyweight
-
-class FlyweightFactory {
-
-}

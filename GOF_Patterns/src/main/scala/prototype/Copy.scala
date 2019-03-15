@@ -1,5 +1,0 @@
-package prototype
-
-class Copy {
-
-}
