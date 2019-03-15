@@ -1,0 +1,5 @@
+package proxy
+
+class SimpleProxy {
+
+}

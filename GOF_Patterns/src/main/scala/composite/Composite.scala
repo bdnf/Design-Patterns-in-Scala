@@ -1,0 +1,5 @@
+package composite
+
+class Composite {
+
+}
