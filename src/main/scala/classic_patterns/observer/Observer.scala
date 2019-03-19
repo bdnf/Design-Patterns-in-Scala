@@ -1,10 +1,10 @@
 package classic_patterns.observer
 
-class PropertyChangedEventArgs[T](var source: T, var propertyName: String, var newValue: Any)
+class State[T](var source: T, var propertyName: String, var newValue: Any)
 
 // observes objects of type T
 trait Observer[T] {
-  def handle(args: PropertyChangedEventArgs[T]): Unit
+  def receiveUpdate(args: State[T]): Unit
 }
 
 // can be observed
@@ -15,10 +15,10 @@ class Observable[T] {
     observers :+= observer
   }
 
-  protected def propertyChanged(source: T, propertyName: String, newValue: Any): Unit = {
+  protected def notifyObservers(source: T, propertyName: String, newValue: Any): Unit = {
 
-    for (o: Observer[T] <- observers) {
-      o.handle(new PropertyChangedEventArgs[T](source, propertyName, newValue))
+    observers foreach {
+      _.receiveUpdate(new State[T](source, propertyName, newValue))
     }
   }
 }
@@ -31,7 +31,7 @@ class Person extends Observable[Person] {
   def setAge(age: Int): Unit = {
     if (this.age == age) return
     this.age = age
-    propertyChanged(this, "age", age)
+    notifyObservers(this, "age", age)
   }
 }
 
@@ -50,7 +50,7 @@ class ObserverInfrastructureDemo() extends Observer[Person] {
     i += 1
   }
 
-  override def handle(args: PropertyChangedEventArgs[Person]): Unit = {
+  override def receiveUpdate(args: State[Person]): Unit = {
     println("Person's " + args.propertyName + " has been changed to " + args.newValue)
   }
 }
