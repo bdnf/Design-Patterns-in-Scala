@@ -1,26 +1,35 @@
 package classic_patterns.proxy
 
+import java.util
+
 // Goal: changing object behaviour, but using existing interface
 
-class UnresponsiblePerson(var age: Int) {
-
-  def drink: String = "drinking"
-
-  def drive: String = "driving"
-
-  def drinkAndDrive: String = "driving while drunk"
+trait Bank{
+  def withdrawMoney(client: String)
 }
 
-class ResponsiblePerson(var person: UnresponsiblePerson) {
-  def setAge(value: Int): Unit = {
-    person.age = value
+class ConcreteBank extends Bank {
+  override def withdrawMoney(client: String): Unit = {
+    println(s"Client $client withdarwed money from our bank")
   }
+}
 
-  def drink: String = if (person.age >= 18) person.drink
-  else "too young"
+class ProxyBank extends Bank {
+  private val bank = new ConcreteBank
 
-  def drive: String = if (person.age >= 16) person.drive
-  else "too young"
+  var clientList = List("Responsible Client1", "Responsible Client2")
 
-  def drinkAndDrive = "dead"
+  override def withdrawMoney(client: String): Unit = {
+    if (clientList.contains(client)){
+      println(s"$client is allowed to use services or the bank")
+    } else {
+      println("Access to the bank denied. Please contact your manager")
+    }
+  }
+}
+
+object SimpleProxy extends App {
+
+  val bank = new ProxyBank
+  bank.withdrawMoney("Unresponsible client")
 }
